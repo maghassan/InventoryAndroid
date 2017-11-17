@@ -14,7 +14,8 @@ import java.util.Vector;
 
 public class DataBase
 {
-    private static Vector<EmployeeEntry> employeeEntries;
+    private static EmployeeEntry signedInAs = null;
+    private static Vector<EmployeeEntry> employeeEntries = null;
 
 
 
@@ -49,6 +50,17 @@ public class DataBase
     public static Vector<EmployeeEntry> getEmployees()
     {
         return employeeEntries;
+    }
+
+
+    public static void setSignInAs(EmployeeEntry entry)
+    {
+        signedInAs = entry;
+    }
+
+    public static void signOut()
+    {
+        signedInAs = null;
     }
 
 

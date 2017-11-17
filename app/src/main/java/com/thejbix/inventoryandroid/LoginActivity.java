@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity
     private Spinner cmbChooseEmployee;
     private Context context;
     private ProgressBar progressBar;
+    private Button btnSignIn;
 
 
 
@@ -49,6 +51,18 @@ public class LoginActivity extends AppCompatActivity
 
         cmbChooseEmployee = (Spinner) findViewById(R.id.cmbEmployee);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
+        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+
+
+        btnSignIn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                EmployeeEntry selected = (EmployeeEntry)(cmbChooseEmployee.getSelectedItem());
+                DataBase.setSignInAs(selected);
+            }
+        });
 
 
 
@@ -69,34 +83,6 @@ public class LoginActivity extends AppCompatActivity
 
                 }
 
-
-
-
-                /*try
-                {
-
-                    JSONObject json = new JSONObject(responseData);
-                    JSONArray jsonArray = json.getJSONArray("results");
-
-                    String[] array_spinner = new String[jsonArray.length()];
-
-                    for(int i = 0;i<jsonArray.length();i++)
-                    {
-                        int id = jsonArray.getJSONObject(i).getInt("id");
-                        String name = jsonArray.getJSONObject(i).getString("name");
-                        double amount = jsonArray.getJSONObject(i).getDouble("amount");
-                        Log.d("Print", "" + id + ": " + name + " " + amount);
-
-                    }
-
-                    //ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, array_spinner);
-
-
-                }
-                catch (JSONException e)
-                {
-                    e.printStackTrace();
-                }*/
             }
 
             @Override
@@ -106,12 +92,25 @@ public class LoginActivity extends AppCompatActivity
             }
         };
 
-        MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php", responseListener);
-        requester.sqlRequestEmployees();
-        requester.execute();
 
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
+        if(DataBase.getEmployees() != null)
+        {
+            Vector<EmployeeEntry> employees = DataBase.getEmployees();
+            EmployeeEntry[] e = employees.toArray(new EmployeeEntry[employees.size()]);
+            ArrayAdapter<EmployeeEntry> adapter = new ArrayAdapter<EmployeeEntry>(context, android.R.layout.simple_spinner_dropdown_item, e);
+            cmbChooseEmployee.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
+        }
+        else
+        {
+            MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php", responseListener);
+            requester.sqlRequestEmployees();
+            requester.execute();
+
+            progressBar.setIndeterminate(true);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
 
 
 
