@@ -16,6 +16,7 @@ public class DataBase
 {
     private static EmployeeEntry signedInAs = null;
     private static Vector<EmployeeEntry> employeeEntries = null;
+    private static Vector<ChemicalEntry> chemicalEntries = null;
 
 
 
@@ -43,13 +44,45 @@ public class DataBase
         {
             e.printStackTrace();
         }
+    }
+
+    public static void parseChemicalData(String data)
+    {
+        chemicalEntries = new Vector<ChemicalEntry>();
+        try
+        {
+
+            JSONObject json = new JSONObject(data);
+            JSONArray jsonArray = json.getJSONArray("results");
+
+            String[] array_spinner = new String[jsonArray.length()];
+
+            ChemicalEntry temp;
+            for(int i = 0;i<jsonArray.length();i++)
+            {
+                int id = jsonArray.getJSONObject(i).getInt("id");
+                String name = jsonArray.getJSONObject(i).getString("name");
+                double amount = jsonArray.getJSONObject(i).getDouble("amount");
+                temp = new ChemicalEntry(id,name,amount);
+                chemicalEntries.add(temp);
+            }
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
 
 
     }
 
+
     public static Vector<EmployeeEntry> getEmployees()
     {
         return employeeEntries;
+    }
+    public static Vector<ChemicalEntry> getChemicalEntries()
+    {
+        return chemicalEntries;
     }
 
 

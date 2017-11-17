@@ -146,6 +146,7 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
         dataType = DataType.Chemicals;
     }
 
+
     private String addParametersToURL(String urlStr, String name, String value)
     {
         urlStr += "?"+name +"="+value;
