@@ -7,13 +7,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+
+import java.util.Vector;
 
 public class MainMenu extends AppCompatActivity
 {
     private Context context;
-    private Button btnLogOut;
+    private Button btnLogOut, btnViewChemicals, btnViewPendingOrders, btnViewCompletedOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,9 @@ public class MainMenu extends AppCompatActivity
         context = this;
 
         btnLogOut = (Button) findViewById(R.id.btnSignOut);
-
+        btnViewChemicals = (Button) findViewById(R.id.btnViewChemical);
+        btnViewPendingOrders = (Button) findViewById(R.id.btnViewPendingOrders);
+        btnViewCompletedOrders = (Button) findViewById(R.id.btnViewCompletedOrders);
 
 
         btnLogOut.setOnClickListener(new View.OnClickListener()
@@ -37,6 +43,43 @@ public class MainMenu extends AppCompatActivity
             }
         });
 
+
+        final MySqlServerRequest.OnServerResponseListener responseListener = new MySqlServerRequest.OnServerResponseListener()
+        {
+            @Override
+            public void onRequestRecieved(String responseData)
+            {
+                Log.d("Print", responseData);
+                if(responseData.contains("DONE"))
+                {
+
+                    Vector<OrderEntry> orders = DataBase.getOrderEntries();
+                    for(OrderEntry order: orders)
+                    {
+                        order.print();
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onError()
+            {
+                Log.d("Print", "Error");
+            }
+        };
+
+
+        btnViewPendingOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php", responseListener);
+                requester.sqlRequestOrders();
+                requester.execute();
+            }
+        });
 
 
 

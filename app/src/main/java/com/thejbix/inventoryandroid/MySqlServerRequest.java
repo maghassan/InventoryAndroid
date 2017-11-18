@@ -85,6 +85,14 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
             {
                 DataBase.parseEmployeeData(result);
             }
+            else if(dataType == DataType.Chemicals)
+            {
+                DataBase.parseChemicalData(result);
+            }
+            else if(dataType == DataType.Orders)
+            {
+                DataBase.parseOrderData(result);
+            }
             return "DONE";
 
         }
@@ -144,6 +152,12 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
     {
         sqlString = "SELECT * FROM Chemicals";
         dataType = DataType.Chemicals;
+    }
+
+    public void sqlRequestOrders()
+    {
+        sqlString = "Select * FROM Orders";
+        dataType = DataType.Orders;
     }
 
 
