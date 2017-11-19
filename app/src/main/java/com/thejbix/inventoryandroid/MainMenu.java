@@ -81,6 +81,14 @@ public class MainMenu extends AppCompatActivity
             }
         });
 
+        btnViewChemicals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ViewChemicals.class);
+                startActivity(intent);
+            }
+        });
+
 
 
     }

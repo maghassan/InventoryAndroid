@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class MySqlServerRequest extends AsyncTask<String, Void, String>
 {
-    private enum DataType
+    public enum DataType
     {
         Employees, Chemicals, Orders, Errors
     }
@@ -43,7 +43,7 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
     protected String doInBackground(String... strings)
     {
 
-        int timeout = 60000;
+        int timeout = 20000;
         HttpURLConnection c = null;
         try
         {
@@ -93,7 +93,7 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
             {
                 DataBase.parseOrderData(result);
             }
-            return "DONE";
+            return dataType.toString();
 
         }
         catch (MalformedURLException ex)

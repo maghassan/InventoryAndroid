@@ -25,6 +25,10 @@
         <activity
             android:name=".MainMenu"
             android:label="@string/title_activity_main_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewChemicals"
+            android:label="@string/title_activity_view_chemicals"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

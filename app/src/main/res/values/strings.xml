@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">InventoryAndroid</string>
     <string name="title_activity_main_menu">Main Menu</string>
+    <string name="title_activity_view_chemicals">ViewChemicals</string>
 </resources>

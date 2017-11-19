@@ -76,22 +76,26 @@ public class LoginActivity extends AppCompatActivity
             public void onRequestRecieved(String responseData)
             {
                 Log.d("Print", responseData);
-                if(responseData.contains("DONE"))
+                if(responseData.contains(MySqlServerRequest.DataType.Employees.toString()))
                 {
 
                     Vector<EmployeeEntry> employees = DataBase.getEmployees();
                     EmployeeEntry[] e = employees.toArray(new EmployeeEntry[employees.size()]);
                     ArrayAdapter<EmployeeEntry> adapter = new ArrayAdapter<EmployeeEntry>(context, android.R.layout.simple_spinner_dropdown_item, e);
                     cmbChooseEmployee.setAdapter(adapter);
-                    progressBar.setVisibility(View.GONE);
 
                 }
+                progressBar.setVisibility(View.GONE);
 
             }
 
             @Override
             public void onError()
             {
+                EmployeeEntry[] e = {new EmployeeEntry(0,"Guest")};
+                ArrayAdapter<EmployeeEntry> adapter = new ArrayAdapter<EmployeeEntry>(context, android.R.layout.simple_spinner_dropdown_item, e);
+                cmbChooseEmployee.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
                 Log.d("Print", "Error");
             }
         };
