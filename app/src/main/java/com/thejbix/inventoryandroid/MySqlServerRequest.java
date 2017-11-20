@@ -39,6 +39,14 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
         dataType = DataType.Errors;
     }
 
+    public MySqlServerRequest(String url)
+    {
+        this.url = url;
+        this.listener = null;
+        sqlString = "";
+        dataType = DataType.Errors;
+    }
+
     @Override
     protected String doInBackground(String... strings)
     {
@@ -134,6 +142,11 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
         {
             listener.onError();
         }
+    }
+
+    public void setListener(OnServerResponseListener listener)
+    {
+        this.listener = listener;
     }
 
     public interface OnServerResponseListener

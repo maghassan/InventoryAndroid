@@ -171,5 +171,33 @@ public class DataBase
         signedInAs = null;
     }
 
+    public static void setupTestChemicalData()
+    {
+        chemicalEntries = new Vector<ChemicalEntry>();
+        chemicalEntries.add(new ChemicalEntry(1,"Dimethoate", 30));
+        chemicalEntries.add(new ChemicalEntry(2,"Penthynol", 70));
+        chemicalEntries.add(new ChemicalEntry(3,"Radon", 20));
+        chemicalEntries.add(new ChemicalEntry(4,"Roundup", 100));
+        chemicalEntries.add(new ChemicalEntry(5,"Oberon", 10));
+
+    }
+
+    public static void setupTestOrderData()
+    {
+        orderEntries = new Vector<OrderEntry>();
+
+        OrderEntry temp = new OrderEntry(1);
+        temp.setOwner("Mike Aven");
+        temp.setField("10-29-30");
+        temp.setAcres(60);
+        temp.setChemId(0,4);
+        temp.setChemRate(0,1);
+        temp.setChemId(1,5);
+        temp.setChemRate(1,.5);
+        orderEntries.add(temp);
+
+    }
+
+
 
 }
