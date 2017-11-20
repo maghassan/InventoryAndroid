@@ -113,7 +113,7 @@ public class ViewPendingOrders extends AppCompatActivity
 
     public void populateRows()
     {
-        int cellHeight = 120;
+        int cellHeight = 500; //120
 
         Vector<OrderEntry> orderEntries = DataBase.getOrderEntries();
         for(int i = 0;i<orderEntries.size();i++)
