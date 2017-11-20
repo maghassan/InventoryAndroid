@@ -70,16 +70,15 @@ public class MainMenu extends AppCompatActivity
                 Log.d("Print", "Error");
             }
         };
-
-
         btnViewPendingOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php", responseListener);
-                requester.sqlRequestOrders();
-                requester.execute();
+                Intent intent = new Intent(context, ViewPendingOrders.class);
+                startActivity(intent);
             }
         });
+
+
 
         btnViewChemicals.setOnClickListener(new View.OnClickListener() {
             @Override

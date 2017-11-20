@@ -55,7 +55,6 @@ public class ViewChemicals extends AppCompatActivity {
 
         MySqlServerRequest.OnServerResponseListener responseListener = null;
 
-        final MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php");
 
 
         responseListener = new MySqlServerRequest.OnServerResponseListener()
@@ -85,22 +84,9 @@ public class ViewChemicals extends AppCompatActivity {
                 }
                 else if(responseData.contains(MySqlServerRequest.DataType.Orders.toString()))
                 {
-                    if(DataBase.getOrderEntries() == null)
-                    {
-                        Log.d("Print","Null");
-                    }
-                    else
-                    {
-                        for(int i = 0;i<DataBase.getOrderEntries().size();i++)
-                        {
-                            DataBase.getOrderEntries().get(i).print();
-                        }
-
-                    }
                     configureGraph();
 
                 }
-
 
             }
 
@@ -111,11 +97,10 @@ public class ViewChemicals extends AppCompatActivity {
                 DataBase.setupTestChemicalData();
                 DataBase.setupTestOrderData();
                 configureGraph();
-
             }
         };
 
-        requester.setListener(responseListener);
+        MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php", responseListener);
         requester.sqlRequestChemicals();
         requester.execute();
     }
