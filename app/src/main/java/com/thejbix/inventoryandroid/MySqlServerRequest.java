@@ -21,7 +21,7 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
 {
     public enum DataType
     {
-        Employees, Chemicals, Orders, Errors
+        Employees, Chemicals, Orders, Errors, Edits
     }
 
     private OnServerResponseListener listener;
@@ -101,6 +101,10 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
             {
                 DataBase.parseOrderData(result);
             }
+            else if(dataType == DataType.Edits)
+            {
+
+            }
             return dataType.toString();
 
         }
@@ -171,6 +175,13 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
     {
         sqlString = "Select * FROM Orders";
         dataType = DataType.Orders;
+    }
+
+    public void sqlEditChemical(ChemicalEntry entry)
+    {
+        sqlString = "UPDATE Chemicals SET name = " + entry.getName() + ", amount = " + entry.getAmount()
+                + " WHERE id = " + entry.getId();
+        dataType = DataType.Edits;
     }
 
 

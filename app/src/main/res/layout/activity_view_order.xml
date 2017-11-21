@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.thejbix.inventoryandroid.ViewOrder">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <TextView
+            android:id="@+id/lblCreated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/txtOwner"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="18dp"
+            android:text="DateCreated"
+            tools:layout_editor_absoluteX="343dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/lblPilot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/lblField"
+            android:layout_alignBottom="@+id/lblField"
+            android:layout_alignEnd="@+id/txtPilot"
+            android:text="Pilot"
+            tools:layout_editor_absoluteX="343dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/lbReported"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/btnReport"
+            android:layout_below="@+id/btnReport"
+            android:layout_marginTop="22dp"
+            android:text="Reported By" />
+
+        <TextView
+            android:id="@+id/txtReported"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/lbReported"
+            android:layout_below="@+id/lbReported"
+            android:text="TextView"
+            android:textAppearance="@android:style/TextAppearance.Material.Title" />
+
+        <TextView
+            android:id="@+id/txtPilot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/txtField"
+            android:layout_alignBottom="@+id/txtField"
+            android:layout_alignEnd="@+id/btnReport"
+            android:text="TextView"
+            android:textAppearance="@android:style/TextAppearance.Material.Title" />
+
+        <TextView
+            android:id="@+id/lblOwner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="22dp"
+            android:text="Owner" />
+
+        <TextView
+            android:id="@+id/lblField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/txtOwner"
+            android:layout_below="@+id/txtOwner"
+            android:layout_marginTop="14dp"
+            android:text="Field" />
+
+        <TextView
+            android:id="@+id/lblAcres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/txtField"
+            android:layout_below="@+id/txtField"
+            android:layout_marginTop="19dp"
+            android:text="Acres" />
+
+        <TextView
+            android:id="@+id/txtAcres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/lblAcres"
+            android:layout_below="@+id/lblAcres"
+            android:text="TextView"
+            android:textAppearance="@android:style/TextAppearance.Material.Title" />
+
+        <TextView
+            android:id="@+id/txtField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/lblField"
+            android:layout_below="@+id/lblField"
+            android:text="TextView"
+            android:textAppearance="@android:style/TextAppearance.Material.Title" />
+
+        <TextView
+            android:id="@+id/txtOwner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/lblOwner"
+            android:layout_below="@+id/lblOwner"
+            android:text="TextView"
+            android:textAppearance="@android:style/TextAppearance.Material.Title" />
+
+        <TextView
+            android:id="@+id/txtCreated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/lblCreated"
+            android:layout_below="@+id/lblCreated"
+            android:text="TextView"
+            android:textAppearance="@android:style/TextAppearance.Material.Title" />
+
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/txtAcres"
+            android:layout_alignTop="@+id/lbReported">
+
+            <TableRow
+                android:id="@+id/row1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:id="@+id/row2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:id="@+id/row3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:id="@+id/row4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/row5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/btnReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/txtCreated"
+            android:layout_alignTop="@+id/lblAcres"
+            android:text="Report" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -21,6 +21,8 @@ public class DataBase
     private static Vector<OrderEntry> orderEntries = null;
 
 
+
+
     public static void parseEmployeeData(String data)
     {
         employeeEntries = new Vector<EmployeeEntry>();
@@ -198,6 +200,36 @@ public class DataBase
 
     }
 
+    public static ChemicalEntry getChemicalFromId(int id)
+    {
+        if(chemicalEntries !=  null)
+        {
+            for(int i = 0;i<chemicalEntries.size();i++)
+            {
+                if(chemicalEntries.get(i).getId() == id)
+                {
+                    return chemicalEntries.get(i);
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public static EmployeeEntry getEmployeeFromId(int id)
+    {
+        if(employeeEntries !=  null)
+        {
+            for(int i = 0;i<employeeEntries.size();i++)
+            {
+                if(employeeEntries.get(i).getId() == id)
+                {
+                    return employeeEntries.get(i);
+                }
+            }
+        }
+        return null;
+    }
 
 
 }

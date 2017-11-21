@@ -1,6 +1,7 @@
 package com.thejbix.inventoryandroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -159,7 +160,9 @@ public class ViewPendingOrders extends AppCompatActivity
             tblRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    entry.print();
+                    Intent intent = new Intent(context,ViewOrder.class);
+                    ViewOrder.setEntry(entry);
+                    startActivity(intent);
                 }
             });
             table.addView(tblRow,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, 500));

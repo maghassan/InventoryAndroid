@@ -30,10 +30,12 @@
             android:name=".ViewChemicals"
             android:label="@string/title_activity_view_chemicals"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ViewPendingOrders"
+        <activity
+            android:name=".ViewPendingOrders"
             android:label="@string/title_activity_view_chemicals"
-            android:theme="@style/AppTheme.NoActionBar"/>
-            <!--android:screenOrientation="userLandscape"-->
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- android:screenOrientation="userLandscape" -->
+        <activity android:name=".ViewOrder"></activity>
     </application>
 
 </manifest>
