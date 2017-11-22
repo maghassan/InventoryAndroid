@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Vector;
+
 public class ViewOrder extends AppCompatActivity {
 
     private static OrderEntry entry;
@@ -76,20 +78,31 @@ public class ViewOrder extends AppCompatActivity {
             }
             txtReport.setText(reporter);
             btnReport.setText("UnReport");
+
+            btnReport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    unReport();
+                }
+            });
         }
         else
         {
             txtReport.setVisibility(View.INVISIBLE);
             lblReporter.setVisibility(View.INVISIBLE);
+
+            btnReport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    report();
+                }
+            });
         }
 
 
-        btnReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                
-            }
-        });
+
+
+
 
 
         MySqlServerRequest.OnServerResponseListener responseListener = new MySqlServerRequest.OnServerResponseListener()
@@ -144,7 +157,7 @@ public class ViewOrder extends AppCompatActivity {
             {
                 txtChemName.setText(chemicalEntry.getName());
             }
-            txtChemName.setGravity(Gravity.LEFT);
+            txtChemName.setGravity(Gravity.CENTER_VERTICAL);
             txtChemName.setBackgroundResource(R.drawable.border);
             txtChemName.setLayoutParams(new TableRow.LayoutParams(0, cellHeight));
             rows[i].addView(txtChemName);
@@ -158,7 +171,7 @@ public class ViewOrder extends AppCompatActivity {
             {
                 txtChemRate.setText(String.valueOf(entry.getChemRate(i)));
             }
-            txtChemRate.setGravity(Gravity.RIGHT);
+            txtChemRate.setGravity(Gravity.CENTER);
             txtChemRate.setBackgroundResource(R.drawable.border);
             txtChemRate.setLayoutParams(new TableRow.LayoutParams(0, cellHeight));
             rows[i].addView(txtChemRate);
@@ -173,11 +186,55 @@ public class ViewOrder extends AppCompatActivity {
             {
                 txtChemTotal.setText(String.valueOf(entry.getChemRate(i)*entry.getAcres()));
             }
-            txtChemTotal.setGravity(Gravity.RIGHT);
+            txtChemTotal.setGravity(Gravity.CENTER);
             txtChemTotal.setBackgroundResource(R.drawable.border);
             txtChemTotal.setLayoutParams(new TableRow.LayoutParams(0, cellHeight));
             rows[i].addView(txtChemTotal);
         }
+    }
+
+    private void report()
+    {
+        entry.setReported(true);
+        entry.setReporter(DataBase.getSignedInAs().getId());
+
+        ChemicalEntry[] chemicalEntries = new ChemicalEntry[5];
+        for(int i = 0;i<5;i++)
+        {
+            ChemicalEntry chemicalEntry = DataBase.getChemicalFromId(entry.getChemId(i));
+            if(chemicalEntry != null)
+            {
+                chemicalEntry.setAmount(chemicalEntry.getAmount() - (entry.getChemRate(i) * entry.getAcres()));
+                chemicalEntries[i] = chemicalEntry;
+            }
+        }
+
+        MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php");
+        requester.sqlReportOrder(entry,chemicalEntries);
+        requester.execute();
+
+    }
+
+    private void unReport()
+    {
+        entry.setReported(false);
+        entry.setReporter(0);
+
+        ChemicalEntry[] chemicalEntries = new ChemicalEntry[5];
+        for(int i = 0;i<5;i++)
+        {
+            ChemicalEntry chemicalEntry = DataBase.getChemicalFromId(entry.getChemId(i));
+            if(chemicalEntry != null)
+            {
+                chemicalEntry.setAmount(chemicalEntry.getAmount() + (entry.getChemRate(i) * entry.getAcres()));
+                chemicalEntries[i] = chemicalEntry;
+            }
+        }
+
+        MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php");
+        requester.sqlReportOrder(entry,chemicalEntries);
+        requester.execute();
+
     }
 
 

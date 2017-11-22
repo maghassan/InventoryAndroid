@@ -79,7 +79,7 @@ public class ViewChemicals extends AppCompatActivity {
                     }
 
                     MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php",this);
-                    requester.sqlRequestOrders();
+                    requester.sqlRequestNonReportedOrders();
                     requester.execute();
                 }
                 else if(responseData.contains(MySqlServerRequest.DataType.Orders.toString()))

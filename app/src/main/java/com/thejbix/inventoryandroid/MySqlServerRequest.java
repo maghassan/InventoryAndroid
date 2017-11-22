@@ -21,7 +21,7 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
 {
     public enum DataType
     {
-        Employees, Chemicals, Orders, Errors, Edits
+        Employees, Chemicals, Orders, Errors, Edits, MULTI
     }
 
     private OnServerResponseListener listener;
@@ -56,6 +56,14 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
         try
         {
             url = addParametersToURL(url,"sql",sqlString);
+            if(dataType == DataType.MULTI)
+            {
+                url = addAdditionalParamters(url,"multi", "true");
+            }
+            else
+            {
+                url = addAdditionalParamters(url, "multi", "false");
+            }
             URL u = new URL(url);
             c = (HttpURLConnection) u.openConnection();
             c.setRequestMethod("GET");
@@ -103,7 +111,13 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
             }
             else if(dataType == DataType.Edits)
             {
-
+                Log.d("Print",result);
+                return result;
+            }
+            else if(dataType == DataType.MULTI)
+            {
+                Log.d("Print",result);
+                return result;
             }
             return dataType.toString();
 
@@ -142,10 +156,11 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
         {
             listener.onRequestRecieved(s);
         }
-        else
+        else if(listener != null)
         {
             listener.onError();
         }
+
     }
 
     public void setListener(OnServerResponseListener listener)
@@ -177,17 +192,56 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
         dataType = DataType.Orders;
     }
 
-    public void sqlEditChemical(ChemicalEntry entry)
+    public void sqlRequestNonReportedOrders()
     {
-        sqlString = "UPDATE Chemicals SET name = " + entry.getName() + ", amount = " + entry.getAmount()
-                + " WHERE id = " + entry.getId();
+        sqlString = "Select * FROM Orders Where reported = 0";
+        dataType = DataType.Orders;
+    }
+
+    public void sqlEditChemical(ChemicalEntry e)
+    {
+        sqlString = "UPDATE Chemicals SET name = " + e.getName() + ", amount = " + e.getAmount()
+                + " WHERE id = " + e.getId();
         dataType = DataType.Edits;
     }
+
+    public void sqlEditOrder(OrderEntry e)
+    {
+        sqlString = "update Orders set reported = "+ e.isReported() +", reporter = " + e.getReporter()
+            + " WHERE id = " + e.getId();
+        dataType = DataType.Edits;
+    }
+
+    public void sqlReportOrder(OrderEntry e, ChemicalEntry[] c)
+    {
+        sqlString = "update Orders set reported = "+ e.isReported() +", reporter = " + e.getReporter()
+                + " WHERE id = " + e.getId() + ";";
+
+        for(int i = 0;i<5;i++)
+        {
+            if(c[i] != null)
+            {
+                sqlString += "UPDATE Chemicals SET amount = " + c[i].getAmount()
+                        + " WHERE id = " + c[i].getId() + ";";
+
+            }
+        }
+
+        dataType = DataType.MULTI;
+
+    }
+
 
 
     private String addParametersToURL(String urlStr, String name, String value)
     {
         urlStr += "?"+name +"="+value;
+        return urlStr;
+    }
+
+    private String addAdditionalParamters(String urlStr, String name, String value)
+    {
+        urlStr += "&" +name + "="+value;
         return urlStr;
     }
 

@@ -38,17 +38,17 @@
             android:id="@+id/lbReported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/btnReport"
-            android:layout_below="@+id/btnReport"
-            android:layout_marginTop="22dp"
+            android:layout_above="@+id/txtReported"
+            android:layout_alignEnd="@+id/lblCreated"
             android:text="Reported By" />
 
         <TextView
             android:id="@+id/txtReported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/lbReported"
-            android:layout_below="@+id/lbReported"
+            android:layout_alignEnd="@+id/lblCreated"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="19dp"
             android:text="TextView"
             android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
@@ -131,7 +131,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/txtAcres"
-            android:layout_alignTop="@+id/lbReported">
+            android:layout_below="@+id/btnReport"
+            android:layout_marginTop="31dp">
 
             <TableRow
                 android:id="@+id/row1"

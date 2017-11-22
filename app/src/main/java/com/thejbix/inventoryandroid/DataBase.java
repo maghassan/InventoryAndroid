@@ -167,6 +167,7 @@ public class DataBase
     {
         signedInAs = entry;
     }
+    public static EmployeeEntry getSignedInAs(){ return signedInAs;}
 
     public static void signOut()
     {
