@@ -105,7 +105,7 @@ public class ViewPendingOrders extends AppCompatActivity
 
 
         MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php", responseListener);
-        requester.sqlRequestOrders();
+        requester.sqlRequestPendingOrders();
         requester.execute();
 
 

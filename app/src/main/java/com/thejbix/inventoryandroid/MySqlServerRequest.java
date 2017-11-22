@@ -186,15 +186,15 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
         dataType = DataType.Chemicals;
     }
 
-    public void sqlRequestOrders()
+    public void sqlRequestPendingOrders()
     {
-        sqlString = "Select * FROM Orders";
+        sqlString = "Select * FROM Orders WHERE status != 3 AND archived = 0";
         dataType = DataType.Orders;
     }
 
     public void sqlRequestNonReportedOrders()
     {
-        sqlString = "Select * FROM Orders Where reported = 0";
+        sqlString = "Select * FROM Orders WHERE reported = 0 AND archived = 0";
         dataType = DataType.Orders;
     }
 
