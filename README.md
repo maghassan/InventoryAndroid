@@ -30,5 +30,5 @@ Orders can be viewed in this app but not edited.  Neither employees or chemicals
 [ChemChart]: https://github.com/thejbix/InventoryAndroid/raw/master/Pictures/chemChart.png "Chemical Chart"
 [Login]: https://github.com/thejbix/InventoryAndroid/raw/master/Pictures/Login.png "Login"
 [OrderTable]: https://github.com/thejbix/InventoryAndroid/raw/master/Pictures/OrderTable.png "Orders Pending"
-[ViewOrder]: https://github.com/thejbix/InventoryAndroid/raw/master/Pictures/EditOrder.png "View Order"
+[ViewOrder]: https://github.com/thejbix/InventoryAndroid/raw/master/Pictures/ViewOrder.png "View Order"
 
