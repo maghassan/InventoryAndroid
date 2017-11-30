@@ -1,6 +1,6 @@
 # Chemical Inventory Calculator
 
-This app is the mobile side to the Desktop version. This app is designed to keep track of a Chemical Inventory for commercial aerial spraying businesses.  A database is hosted online and the desktop java application interacts with the database to keep track of current inventory status and calculates future demand. 
+This app is the mobile side to the [Desktop version](https://github.com/thejbix/Inventory). This app is designed to keep track of a Chemical Inventory for commercial aerial spraying businesses.  A database is hosted online and the desktop java application interacts with the database to keep track of current inventory status and calculates future demand. 
 
 ## Login 
 The app open to the login activity.  Here the app pulls the employees from the database and the user can select their name from the list.  When a user reports a chemical mix has been loaded it will update the database with who loaded that order.
