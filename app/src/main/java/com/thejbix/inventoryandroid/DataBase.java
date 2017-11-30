@@ -10,9 +10,9 @@ import java.sql.Date;
 import java.util.Vector;
 
 /**
- * Created by jaydonbixenman on 11/17/17.
+ * This class stores pulled data in vectors and any other static data that the whole program can
+ * access easily
  */
-
 public class DataBase
 {
     private static EmployeeEntry signedInAs = null;
@@ -21,7 +21,8 @@ public class DataBase
     private static Vector<OrderEntry> orderEntries = null;
 
 
-
+    //parsing functions take string data from the server that has arrived in json format
+    //then turns it into a json object/json array and parses the data into one of three datatypes
 
     public static void parseEmployeeData(String data)
     {
@@ -147,7 +148,7 @@ public class DataBase
 
     }
 
-
+    //functions other classes call to get the pulled data
     public static Vector<EmployeeEntry> getEmployees()
     {
         return employeeEntries;
@@ -162,29 +163,28 @@ public class DataBase
     }
 
 
-
+    //functions regarding who is signed in
     public static void setSignInAs(EmployeeEntry entry)
     {
         signedInAs = entry;
     }
     public static EmployeeEntry getSignedInAs(){ return signedInAs;}
-
     public static void signOut()
     {
         signedInAs = null;
     }
 
-    public static void setupTestChemicalData()
-    {
+    //function used to setup a dummy chemical database in case the database host is down
+    //for testing purposes
+    public static void setupTestChemicalData() {
         chemicalEntries = new Vector<ChemicalEntry>();
-        chemicalEntries.add(new ChemicalEntry(1,"Dimethoate", 30));
-        chemicalEntries.add(new ChemicalEntry(2,"Penthynol", 70));
-        chemicalEntries.add(new ChemicalEntry(3,"Radon", 20));
-        chemicalEntries.add(new ChemicalEntry(4,"Roundup", 100));
-        chemicalEntries.add(new ChemicalEntry(5,"Oberon", 10));
+        chemicalEntries.add(new ChemicalEntry(1, "Dimethoate", 30));
+        chemicalEntries.add(new ChemicalEntry(2, "Penthynol", 70));
+        chemicalEntries.add(new ChemicalEntry(3, "Radon", 20));
+        chemicalEntries.add(new ChemicalEntry(4, "Roundup", 100));
+        chemicalEntries.add(new ChemicalEntry(5, "Oberon", 10));
 
     }
-
     public static void setupTestOrderData()
     {
         orderEntries = new Vector<OrderEntry>();

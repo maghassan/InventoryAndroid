@@ -3,9 +3,8 @@ package com.thejbix.inventoryandroid;
 import android.util.Log;
 
 /**
- * Created by jaydonbixenman on 11/17/17.
+ * DataType that holds an employee entry
  */
-
 public class EmployeeEntry
 {
     private int id;

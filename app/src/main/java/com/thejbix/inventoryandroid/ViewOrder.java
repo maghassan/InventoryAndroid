@@ -1,5 +1,7 @@
 package com.thejbix.inventoryandroid;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +16,15 @@ import org.w3c.dom.Text;
 
 import java.util.Vector;
 
+/**
+ * This activity allows user to view activity
+ * This mobile version does not allow to edit the order
+ * However he/she can report the order has been loaded from this screen
+ */
 public class ViewOrder extends AppCompatActivity {
 
+
+    private Context context;
     private static OrderEntry entry;
 
     private TextView lblReporter;
@@ -30,6 +39,7 @@ public class ViewOrder extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_order);
+        context = this;
 
         txtOwner = (TextView) findViewById(R.id.txtOwner);
         txtField = (TextView) findViewById(R.id.txtField);
@@ -198,6 +208,21 @@ public class ViewOrder extends AppCompatActivity {
         entry.setReported(true);
         entry.setReporter(DataBase.getSignedInAs().getId());
 
+
+        MySqlServerRequest.OnServerResponseListener responseListener = new MySqlServerRequest.OnServerResponseListener() {
+            @Override
+            public void onRequestRecieved(String responseData) {
+                Intent intent = new Intent(context,ViewOrder.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        };
+
         ChemicalEntry[] chemicalEntries = new ChemicalEntry[5];
         for(int i = 0;i<5;i++)
         {
@@ -209,9 +234,12 @@ public class ViewOrder extends AppCompatActivity {
             }
         }
 
-        MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php");
+        MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php",responseListener);
         requester.sqlReportOrder(entry,chemicalEntries);
         requester.execute();
+
+
+
 
     }
 
@@ -219,6 +247,20 @@ public class ViewOrder extends AppCompatActivity {
     {
         entry.setReported(false);
         entry.setReporter(0);
+
+        MySqlServerRequest.OnServerResponseListener responseListener = new MySqlServerRequest.OnServerResponseListener() {
+            @Override
+            public void onRequestRecieved(String responseData) {
+                Intent intent = new Intent(context,ViewOrder.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        };
 
         ChemicalEntry[] chemicalEntries = new ChemicalEntry[5];
         for(int i = 0;i<5;i++)
@@ -231,7 +273,7 @@ public class ViewOrder extends AppCompatActivity {
             }
         }
 
-        MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php");
+        MySqlServerRequest requester = new MySqlServerRequest("http://thejbix.heliohost.org/getDataFromDatabase.php", responseListener);
         requester.sqlReportOrder(entry,chemicalEntries);
         requester.execute();
 

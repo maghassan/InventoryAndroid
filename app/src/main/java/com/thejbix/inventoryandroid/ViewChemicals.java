@@ -33,6 +33,9 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Vector;
 
+/**
+ * Activity that displays the chemical inventory in a bar chart
+ */
 public class ViewChemicals extends AppCompatActivity {
 
     private HorizontalBarChart chart;
@@ -57,6 +60,7 @@ public class ViewChemicals extends AppCompatActivity {
 
 
 
+        //Respons Listener to setup the graph upon current data pulled from database
         responseListener = new MySqlServerRequest.OnServerResponseListener()
         {
             @Override
@@ -105,6 +109,7 @@ public class ViewChemicals extends AppCompatActivity {
         requester.execute();
     }
 
+    //Get data from database for graph
     private ArrayList<IBarDataSet> getDataSet()
     {
         ArrayList<IBarDataSet> dataSets = null;
@@ -150,6 +155,7 @@ public class ViewChemicals extends AppCompatActivity {
         return dataSets;
     }
 
+    //get x axis labels ie. the chemical names
     private ArrayList<String> getXAxisValues() {
         ArrayList<String> xAxis = new ArrayList<>();
         Vector<ChemicalEntry> chemicalEntries = DataBase.getChemicalEntries();
@@ -160,6 +166,7 @@ public class ViewChemicals extends AppCompatActivity {
         return xAxis;
     }
 
+    //configures graph
     private void configureGraph()
     {
         BarData barData = new BarData(getDataSet());

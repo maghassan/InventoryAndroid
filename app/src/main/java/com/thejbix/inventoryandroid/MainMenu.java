@@ -14,6 +14,10 @@ import android.widget.Button;
 
 import java.util.Vector;
 
+/**
+ * This is where the login screen directs to
+ * The other windows can be accessed from this menu
+ */
 public class MainMenu extends AppCompatActivity
 {
     private Context context;

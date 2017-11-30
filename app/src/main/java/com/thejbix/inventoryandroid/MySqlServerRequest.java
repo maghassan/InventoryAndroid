@@ -14,9 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by jaydonbixenman on 11/14/17.
+ * This class sends a GET request to a php file.
+ * That php file then sends the request on to the database and returns whatever data is acquired in
+ *   json form.
+ * It is an AsyncTask because the web request can not be called on the main UI Thread
+ * Hence there is a custom listener has been built in this file that each class can add
+ *   implementations to.
  */
-
 public class MySqlServerRequest extends AsyncTask<String, Void, String>
 {
     public enum DataType
@@ -47,10 +51,11 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
         dataType = DataType.Errors;
     }
 
+    //Call Procedure
     @Override
     protected String doInBackground(String... strings)
     {
-
+        //Timeout after 20 seconds
         int timeout = 20000;
         HttpURLConnection c = null;
         try
@@ -93,6 +98,8 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
                 default:
                     return "ERROR";
             }
+
+            //The string is sent to be parsed by the correct function
             if(result.contains("ERROR"))
             {
                 return "ERROR";
@@ -168,12 +175,14 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
         this.listener = listener;
     }
 
+    //custom Listener
     public interface OnServerResponseListener
     {
         void onRequestRecieved(String responseData);
         void onError();
     }
 
+    //Set the sql request to be sent to the php file
     public void sqlRequestEmployees()
     {
         sqlString = "SELECT * FROM Employees";
@@ -231,14 +240,14 @@ public class MySqlServerRequest extends AsyncTask<String, Void, String>
 
     }
 
-
-
+    //Adds the first parameter to url str
     private String addParametersToURL(String urlStr, String name, String value)
     {
         urlStr += "?"+name +"="+value;
         return urlStr;
     }
 
+    //adds subsequence paramters to url str
     private String addAdditionalParamters(String urlStr, String name, String value)
     {
         urlStr += "&" +name + "="+value;

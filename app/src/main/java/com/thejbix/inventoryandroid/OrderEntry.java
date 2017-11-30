@@ -5,9 +5,8 @@ import android.util.Log;
 import java.sql.Date;
 
 /**
- * Created by jaydonbixenman on 11/17/17.
+ * DataType that stores an order entry
  */
-
 public class OrderEntry
 {
     private int id;

@@ -6,6 +6,8 @@ import android.util.Log;
  * Created by jaydonbixenman on 11/17/17.
  */
 
+//DataType that stores a chemical entry
+
 public class ChemicalEntry
 {
     private int id;
